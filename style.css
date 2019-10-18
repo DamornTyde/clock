@@ -1,0 +1,27 @@
+header{
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    width: 100%;
+    line-height: 30px;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 1;
+    width: 100%;
+    line-height: 20px;
+}
+
+main{
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+h6{
+    margin: 0;
+    margin-left: 5px;
+}
