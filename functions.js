@@ -135,5 +135,5 @@ function mirror(pos) {
     if (date == 1 && month == "April") {
         return -pos;
     }
-    return pos / 2;
+    return pos;
 }
