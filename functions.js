@@ -113,9 +113,16 @@ function drawHand(pos, lenght, width) {
     ctx.lineWidth = width;
     ctx.lineCap = "round";
     ctx.moveTo(0, 0);
-    ctx.rotate(pos);
+    ctx.rotate(mirror(pos));
     ctx.lineTo(0, -lenght);
     ctx.strokeStyle = "#000";
     ctx.stroke();
-    ctx.rotate(-pos);
+    ctx.rotate(mirror(-pos));
+}
+
+function mirror(pos) {
+    if (date == 1 && month == 3) {
+        return -pos;
+    }
+    return pos;
 }
