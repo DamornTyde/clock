@@ -92,15 +92,15 @@ function drawTime(){
     //hour
 	hour = hour % 12;
 	hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60)) + (milisecond * Math.PI / (21600 * 1000));
-	drawHand(hour, radius * 0.5, radius * 0.04);
+	drawHand(hour, radius * 0.5, radius * 0.04, date, month);
     
     //minute
 	minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60)) + (milisecond * Math.PI / (1800 * 1000));
-	drawHand(minute, radius * 0.8, radius * 0.04);
+	drawHand(minute, radius * 0.8, radius * 0.04, date, month);
     
     //second
 	second = (second * Math.PI / 30) + (milisecond * Math.PI / (30 * 1000));
-    drawHand(second, radius * 0.9, radius * 0.02);
+    drawHand(second, radius * 0.9, radius * 0.02, date, month);
     
     ctx.font = radius * 0.05 + "px arial";
 	ctx.fillStyle = "#fff";
@@ -108,19 +108,19 @@ function drawTime(){
     document.getElementsByTagName("header")[0].innerHTML = day + ", " + date + " " + month + " " + year + " (" + time + ")";
 }
 
-function drawHand(pos, lenght, width) {
+function drawHand(pos, lenght, width, date, month) {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.lineCap = "round";
     ctx.moveTo(0, 0);
-    ctx.rotate(mirror(pos));
+    ctx.rotate(mirror(pos, date, month));
     ctx.lineTo(0, -lenght);
     ctx.strokeStyle = "#000";
     ctx.stroke();
-    ctx.rotate(mirror(-pos));
+    ctx.rotate(mirror(-pos, date, month));
 }
 
-function mirror(pos) {
+function mirror(pos, date, month) {
     if (date == 1 && month == 3) {
         return -pos;
     }
