@@ -1,10 +1,21 @@
-var canvas = document.getElementById("clock"),
+let canvas = document.getElementById("clock"),
     canvas2 = document.createElement("canvas"),
     ctx = canvas.getContext("2d"),
     ctx2 = canvas2.getContext("2d"),
     grad,
     tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-	tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    now,
+	hour,
+    minute,
+    second,
+    milisecond,
+	day,
+	date,
+	month,
+	year,
+    time,
+    part;
 
 canvas.width = 800;
 canvas.height = 800;
@@ -71,17 +82,17 @@ window.requestAnimationFrame(drawTime);
 function drawTime(){
     window.requestAnimationFrame(drawTime);
     ctx.drawImage(canvas2, -canvas.width / 2, -canvas.width / 2);
-    var now = new Date(),
-	    hour = now.getHours(),
-        minute = now.getMinutes(),
-        second = now.getSeconds(),
-        milisecond = now.getMilliseconds(),
-	    day = tday[now.getDay()],
-	    date = now.getDate(),
-	    month = tmonth[now.getMonth()],
-	    year = now.getFullYear(),
-        time = (Math.floor(now.getTime() / 1000)).toLocaleString(),
-        part;
+    now = new Date(),
+	hour = now.getHours(),
+    minute = now.getMinutes(),
+    second = now.getSeconds(),
+    milisecond = now.getMilliseconds(),
+	day = tday[now.getDay()],
+	date = now.getDate(),
+	month = tmonth[now.getMonth()],
+	year = now.getFullYear(),
+    time = (Math.floor(now.getTime() / 1000)).toLocaleString(),
+    part;
     
     if (hour < 12) {
 		part = "AM";
@@ -91,16 +102,16 @@ function drawTime(){
     
     //hour
 	hour = hour % 12;
-	hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60)) + (milisecond * Math.PI / (21600 * 1000));
-	drawHand(hour, radius * 0.5, radius * 0.04, date, month);
+	hour = (hour * Math.PI / 6) + (minute * Math.PI / (360)) + (second * Math.PI / (21600)) + (milisecond * Math.PI / (21600000));
+	drawHand(hour, radius * 0.5, radius * 0.04);
     
     //minute
-	minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60)) + (milisecond * Math.PI / (1800 * 1000));
-	drawHand(minute, radius * 0.8, radius * 0.04, date, month);
+	minute = (minute * Math.PI / 30) + (second * Math.PI / (1800)) + (milisecond * Math.PI / (1800000));
+	drawHand(minute, radius * 0.8, radius * 0.04);
     
     //second
-	second = (second * Math.PI / 30) + (milisecond * Math.PI / (30 * 1000));
-    drawHand(second, radius * 0.9, radius * 0.02, date, month);
+	second = (second * Math.PI / 30) + (milisecond * Math.PI / (30000));
+    drawHand(second, radius * 0.9, radius * 0.02);
     
     ctx.font = radius * 0.05 + "px arial";
 	ctx.fillStyle = "#fff";
@@ -108,19 +119,19 @@ function drawTime(){
     document.getElementsByTagName("header")[0].innerHTML = day + ", " + date + " " + month + " " + year + " (" + time + ")";
 }
 
-function drawHand(pos, lenght, width, date, month) {
+function drawHand(pos, lenght, width) {
     ctx.beginPath();
     ctx.lineWidth = width;
     ctx.lineCap = "round";
     ctx.moveTo(0, 0);
-    ctx.rotate(mirror(pos, date, month));
+    ctx.rotate(mirror(pos));
     ctx.lineTo(0, -lenght);
     ctx.strokeStyle = "#000";
     ctx.stroke();
-    ctx.rotate(mirror(-pos, date, month));
+    ctx.rotate(mirror(-pos));
 }
 
-function mirror(pos, date, month) {
+function mirror(pos) {
     if (date == 1 && month == 3) {
         return -pos;
     }
