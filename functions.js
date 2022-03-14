@@ -134,7 +134,7 @@ function drawHand(pos, lenght, width) {
 function mirror(pos) {
     if (date == 1 && month == "April") {
         return -pos;
-    } else if (date == 1 && month == "April") {
+    } else if (date == 1 || month == "April") {
         return pos / 2;
     }
     return pos;
