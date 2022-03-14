@@ -101,7 +101,6 @@ function drawTime(){
     }
     
     //hour
-	hour = hour % 12;
 	hour = (hour * Math.PI / 6) + (minute * Math.PI / (360)) + (second * Math.PI / (21600)) + (milisecond * Math.PI / (21600000));
 	drawHand(hour, radius * 0.5, radius * 0.04);
     
@@ -134,8 +133,6 @@ function drawHand(pos, lenght, width) {
 function mirror(pos) {
     if (date == 1 && month == "April") {
         return -pos;
-    } else if (date == 1 || month == "April") {
-        return pos / 2;
     }
     return pos;
 }
